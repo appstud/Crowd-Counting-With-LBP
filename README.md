@@ -1,5 +1,13 @@
 # Crowd-Counting-With-LBP
-### Download the ShanghaiTech Database and put it in the root folder
+## Prerequisites
+- Python 3.6
+- SciPy library
+- SciKit image library
+- OpenCV library
+
+## Quick start
+
+### Download the ShanghaiTech Database by looking into the repository and put it in the root folder
 
     https://github.com/desenzhou/ShanghaiTechDataset
     

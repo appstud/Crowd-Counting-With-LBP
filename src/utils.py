@@ -5,6 +5,9 @@ import random
 import numpy as np
 
 
+def get_file_id(filepath):
+    return os.path.splitext(os.path.basename(filepath))[0]
+    
 def get_data_list(data_root, mode='train'):
 
     """
@@ -34,7 +37,6 @@ def get_data_list(data_root, mode='train'):
         file_id = get_file_id(filepath)
         gt_file_path = os.path.join(gtpath, 'GT_'+ file_id + '.mat')
         gt_list.append(gt_file_path)
-
     xy = list(zip(image_list, gt_list))
     random.shuffle(xy)
     s_image_list, s_gt_list = zip(*xy)

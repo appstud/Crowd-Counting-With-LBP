@@ -52,7 +52,7 @@ def drawPointsOnImage(image,points):
         cv2.circle(image, (np.int(x),np.int(y)), 1, (0, 255, 0), -1)
     return image
 
-def extractDataForOneImage(image,points,lbp,numberOfRectanglePerRow,numberOfRectanglePerColumn):
+def extractDataForOneImage(image,points,lbp,numberOfRectanglePerRow,numberOfRectanglePerColumn,showImg):
     
     
     ###Convert to grayscale if the image is not in grayscale already
@@ -81,8 +81,9 @@ def extractDataForOneImage(image,points,lbp,numberOfRectanglePerRow,numberOfRect
             rawImage=drawPointsOnImage(image,headPointsInPatch)
 
             ###Show the image
-            cv2.imshow("image",rawImage)
-            k=cv2.waitKey(1)
+            if (showImg):
+                cv2.imshow("image",rawImage)
+                k=cv2.waitKey(1)
 
             ###Calculate the LBP uniform histogram descriptor for the current patch
             hist=lbp.describe(grayImage[i*heightOfPatch:(i+1)*heightOfPatch,j*widthOfPatch:(j+1)*widthOfPatch], eps=1e-7)
@@ -109,9 +110,11 @@ def extractDescriptorsAndGroundTruthMatrix(args,mode="train"):
         # Load the image and ground truth
         rawImage = np.asarray(cv2.imread(images_list[img_idx]), dtype=np.uint8)
         matFile=sio.loadmat(gts_list[img_idx])
+        if img_idx%10 == 0:
+            print("Image processed : "+str(img_idx)+"/"+str(len(images_list)))
         headPoints = matFile['image_info'][0][0][0][0][0]
             
-        nbPointInImage,allHistInImage=extractDataForOneImage(rawImage,headPoints,lbp,args.numberOfRectanglePerRow,args.numberOfRectanglePerColumn)
+        nbPointInImage,allHistInImage=extractDataForOneImage(rawImage,headPoints,lbp,args.numberOfRectanglePerRow,args.numberOfRectanglePerColumn,args.showImg)
         
         ###Concatenate all descriptors into one matrix and all vectors of number of points into one matrix   
         if(allPoints is None):
@@ -144,9 +147,11 @@ def main(args):
 if __name__ == "__main__":
     
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data_root', default='../ShanghaiTech/ShanghaiTech/part_B', type=str)
+    parser.add_argument('--data_root', default='../ShanghaiTech/part_B', type=str)
     parser.add_argument('--numberOfRectanglePerRow', default=16, type=int)
     parser.add_argument('--numberOfRectanglePerColumn', default=12, type=int)
+    parser.add_argument('--showImg', default=0, type=int)
+
     args = parser.parse_args()
 
     main(args)
