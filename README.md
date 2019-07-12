@@ -4,6 +4,7 @@
 - SciPy library
 - SciKit image library
 - OpenCV library
+- SKlearn library
 
 ## Quick start
 
@@ -13,7 +14,7 @@
     
 
 ### Run the extractDescriptorsAndGt.py file to extract lbp descriptor and groundtruth and save them in mat files
-    python extractDescriptorsAndGt.py --data_root="../ShanghaiTech/ShanghaiTech/part_B"
+    python extractDescriptorsAndGt.py --data_root="../ShanghaiTech/ShanghaiTech/part_B" --showImg=1
 
 ### Run the trainAndTestLBP.py file to train and test different parameters from the ridge regression (alpha and gamma)
     python trainAndTestLBP.py --data_root="../ShanghaiTech/ShanghaiTech/part_B"

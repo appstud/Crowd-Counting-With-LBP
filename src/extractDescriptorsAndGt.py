@@ -52,7 +52,7 @@ def drawPointsOnImage(image,points):
         cv2.circle(image, (np.int(x),np.int(y)), 1, (0, 255, 0), -1)
     return image
 
-def extractDataForOneImage(image,points,lbp,numberOfRectanglePerRow,numberOfRectanglePerColumn,showImg):
+def extractDataForOneImage(image,points,lbp,numberOfRectanglePerRow,numberOfRectanglePerColumn,showImg=0):
     
     
     ###Convert to grayscale if the image is not in grayscale already
